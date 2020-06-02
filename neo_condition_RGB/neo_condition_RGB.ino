@@ -5,27 +5,22 @@
 #define NUM_LEDS 1
 #define DHTPIN_internal 6
 #define DHTTYPE DHT22
-
+float temp_internal;
+float humid;
 //create a NeoPixel strip
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 DHT dht_internal(DHTPIN_internal, DHTTYPE);
-String data="RB";
+String data="000255000";
 
-float temp_internal;
-float humid_internal;
+void setColor(){
 
-void setColor(char C){
-  if (C=='G'){
-      strip.setPixelColor(0, 0, 255, 0);
-      strip.show();
-  } else if (C=='O'){
-      strip.setPixelColor(0, 255, 150, 0);
-      strip.show();
-    } else if (C=='R'){
-      strip.setPixelColor(0, 255, 0, 0);
-      strip.show();
-      }
- }
+  int R=data.substring(0,3).toInt();
+  int G=data.substring(3,6).toInt();
+  int B=data.substring(6,9).toInt();
+  strip.setPixelColor(0, R, G, B);
+
+  strip.show();
+}
  void setBlink(char B){
   if (B=='B'){
      strip.setPixelColor(0, 0, 0, 0);
@@ -42,25 +37,29 @@ void setup() {
   dht_internal.begin();
 }
 void loop() {
-  
+  Serial.println();
   //Serial.println("Internal:");
   //Serial.print(F("\tTemperature: "));
-  temp_internal = dht_internal.readTemperature();
-  Serial.print(int(temp_internal));
-  // set pixel to red, delay(1000) Green: strip.setPixelColor(0, 0, 255, 0); Orange: strip.setPixelColor(0, 255, 200, 0);
-  setColor(data.charAt(0));
-  delay(250);
-  setBlink(data.charAt(1));
-  delay(250);
-  if (data.charAt(2)=='T'){
-    temp_internal = dht_internal.readTemperature();
-    Serial.print(int(temp_internal)); //int needed. otherwise it gets messed up
-    }
-   if (data.charAt(2)=='H'){
-    humid_internal = dht_internal.readHumidity();
-    Serial.print(int(humid_internal)); //int needed. otherwise it gets messed up
-    }
+
+  //Serial.print([charValT,charValH]);
+  //Serial.print(charValH);
+  //Serial.print(int(humid_internal)); //int needed. otherwise it gets messed up
   
+  // set pixel to red, delay(1000) Green: strip.setPixelColor(0, 0, 255, 0); Orange: strip.setPixelColor(0, 255, 200, 0);
+  setColor();
+  delay(250);
+  setBlink(data.charAt(9));
+  delay(250);
+  if (data.charAt(10)=='T'){
+      temp_internal = dht_internal.readTemperature();
+    Serial.println(temp_internal); //int needed. otherwise it gets messed up
+    data.setCharAt(10,'Z');
+    }
+  if (data.charAt(10)=='H'){
+    humid = dht_internal.readHumidity();
+    Serial.println(humid); //int needed. otherwise it gets messed up
+    data.setCharAt(10,'Z');
+    }
   if(Serial.available()>0){
     data= Serial.readStringUntil('\n');
 
