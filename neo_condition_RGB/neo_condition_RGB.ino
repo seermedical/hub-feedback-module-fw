@@ -10,7 +10,7 @@ float humid;
 //create a NeoPixel strip
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 DHT dht_internal(DHTPIN_internal, DHTTYPE);
-String data="000255000";
+String data="000255000BT";
 
 void setColor(){
 
@@ -37,7 +37,7 @@ void setup() {
   dht_internal.begin();
 }
 void loop() {
-  Serial.println();
+  //Serial.println();
   //Serial.println("Internal:");
   //Serial.print(F("\tTemperature: "));
 
@@ -60,9 +60,9 @@ void loop() {
     Serial.println(humid); //int needed. otherwise it gets messed up
     data.setCharAt(10,'Z');
     }
-  if(Serial.available()>0){
-    data= Serial.readStringUntil('\n');
-
+if(Serial.available()>0){
+      String str = Serial.readStringUntil('\n');
+      if (str.length == 11) {
+          data = str;
+      }
   }
-  
-}
