@@ -47,7 +47,7 @@ void setColor(){
 
 void setup() {
   Serial.end();
-  delay(10000); 
+  delay(1000); 
   // start the strip and blank it out
   String data="000000255ST";
   Serial.begin(9600);
