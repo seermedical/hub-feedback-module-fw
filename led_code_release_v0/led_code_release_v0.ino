@@ -151,7 +151,7 @@ void loop()
     }
     else if (data.charAt(10) == 'I')
     {
-        temp_ext = dht_external.readTemperature();
+        temp_ext = dht_external.readHumidity();
         Serial.println(temp_ext);
         data.setCharAt(10, 'Z');
     }
