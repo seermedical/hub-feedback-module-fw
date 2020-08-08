@@ -137,25 +137,25 @@ void loop()
         Serial.println(temp_internal);
         data.setCharAt(10, 'Z');
     }
-    if (data.charAt(10) == 'H')
+    else if (data.charAt(10) == 'H')
     {
         humid = dht_internal.readHumidity();
         Serial.println(humid);
         data.setCharAt(10, 'Z');
     }
-    if (data.charAt(10) == 'E')
+    else if (data.charAt(10) == 'E')
     {
         temp_ext = dht_external.readTemperature();
         Serial.println(temp_ext);
         data.setCharAt(10, 'Z');
     }
-    if (data.charAt(10) == 'I')
+    else if (data.charAt(10) == 'I')
     {
         temp_ext = dht_external.readTemperature();
         Serial.println(temp_ext);
         data.setCharAt(10, 'Z');
     }
-    if (data.charAt(10) == 'A')
+    else if (data.charAt(10) == 'A')
     {
         Serial.println(accl_max);
         accl_max = 0;
