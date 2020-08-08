@@ -7,7 +7,7 @@
 
 ## Initialization Procedure
 
-If the accelerometer fails to start, the arduino will send "Couldnt start" over serial
+If the accelerometer fails to start, the arduino will send "Couldnt start\n" over serial
 
 ## Command Message Format
 
