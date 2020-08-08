@@ -107,7 +107,7 @@ void loop()
     unsigned long currentMillis = millis();
     if ((currentMillis - serial_data_time) >= serial_wait)
     {
-        data = "000000100ST";
+        data = "000000100SZ";
     }
     if ((currentMillis - previousMillis >= interval) && (data.charAt(9) == 'B'))
     {
