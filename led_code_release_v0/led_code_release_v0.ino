@@ -17,11 +17,13 @@
 #define DHTTYPE DHT22
 
 unsigned long previousMillis = 0;
-unsigned long serial_data_time = 0;
+//unsigned long serial_data_time = 0;
 int ledState = LOW;
 const long interval = 500;
 const long serial_wait = 10000;
-
+unsigned long serial_data_time=0;
+unsigned long last_time=0;
+const long wdt_wait = 500;
 float temp_internal;
 float temp_ext;
 float humid;
@@ -30,6 +32,7 @@ float accl_max = 0;
 String data = "000000100ST";
 int count = 0;
 int acc_start = 1;
+int i=0;
 //create a NeoPixel strip
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 DHT dht_internal(DHTPIN_internal, DHTTYPE);
@@ -105,10 +108,19 @@ void loop()
         }
     }
     unsigned long currentMillis = millis();
+	if ((currentMillis-last_time)>=wdt_wait) {
+		i++;
+		last_time = currentMillis;
+		if (i<40){
+			wdt_reset();
+		}
+    }
+	/*
     if ((currentMillis - serial_data_time) >= serial_wait)
     {
         data = "000000100SZ";
     }
+	*/
     if ((currentMillis - previousMillis >= interval) && (data.charAt(9) == 'B'))
     {
         // save the last time you blinked the LED
