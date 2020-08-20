@@ -178,7 +178,7 @@ void loop()
     {
         String str = Serial.readStringUntil('\n');
         if (str.length() == 11)
-        {
+        {   i=0;
             data = str;
             wdt_reset();
             serial_data_time = currentMillis;
