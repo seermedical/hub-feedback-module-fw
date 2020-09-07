@@ -72,7 +72,7 @@ void setup()
         delay(10);
     if (!accel.begin(0x18))
     { // change this to 0x19 for alternative i2c address
-        Serial.println("Couldnt start");
+        //Serial.println("Couldnt start");
         acc_start = 0;
         while (1)
             yield();
@@ -168,10 +168,13 @@ void loop()
         data.setCharAt(10, 'Z');
     }
     else if (data.charAt(10) == 'A')
-    {
+    {   if (!acc_start){
+          Serial.println("Couldnt start");
+        } else{
         Serial.println(accl_max);
         accl_max = 0;
         data.setCharAt(10, 'Z');
+        }
     }
 
     if (Serial.available() > 0)
