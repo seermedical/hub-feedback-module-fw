@@ -66,7 +66,7 @@ void setup()
     //Serial.end();
     //delay(1000);
     // start the strip and blank it out
-    String data = "000000100ST";
+    String data = "000000100SZ";
     Serial.begin(9600);
     while (!Serial)
         delay(10);
