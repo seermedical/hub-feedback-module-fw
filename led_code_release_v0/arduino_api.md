@@ -41,4 +41,4 @@ Append the newline character ('\n') to the end of the command
 
 #### Response Format (Arduino -> Hub)
 
-The string representation of the floating point number value of the data requested terminated by a newline character
+The string representation of the floating point number value of the data requested terminated by a carriage return `\r` followed by a newline character `\n`
