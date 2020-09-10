@@ -1,0 +1,5 @@
+Firmware_version:13
+UPStemp:34
+charge:81
+battery_state:0
+hub_temp:33.20
