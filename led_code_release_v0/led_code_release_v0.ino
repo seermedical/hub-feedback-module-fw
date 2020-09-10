@@ -30,7 +30,7 @@ float temp_ext;
 float humid;
 float accl;
 float accl_max = 0;
-String data = "000000100ST";
+String data = "000000100SZ";
 int count = 0;
 int acc_start = 1;
 int i=0;
