@@ -19,6 +19,7 @@
 unsigned long previousMillis = 0;
 //unsigned long serial_data_time = 0;
 int ledState = LOW;
+const long baudRate = 9600;
 const long interval = 500;
 const long serial_wait = 10000;
 unsigned long serial_data_time=0;
@@ -67,9 +68,10 @@ void setup()
     //delay(1000);
     // start the strip and blank it out
     String data = "000000100SZ";
-    Serial.begin(9600);
-    while (!Serial)
-        delay(10);
+    Serial.begin(baudRate);
+    
+    while (!Serial); // wait for serial to be ready (for USB CDC based serial connections)
+
     if (!accel.begin(0x18))
     { // change this to 0x19 for alternative i2c address
         //Serial.println("Couldnt start");
@@ -177,7 +179,7 @@ void loop()
         }
     }
 
-    if (Serial.available() > 0)
+    if (Serial && Serial.available() > 0)
     {
         String str = Serial.readStringUntil('\n');
         if (str.length() == 11)
