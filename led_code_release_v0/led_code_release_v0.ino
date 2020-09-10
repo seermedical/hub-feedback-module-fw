@@ -53,6 +53,9 @@ DHT dht_external(DHTPIN_external, DHTTYPE);
 Adafruit_LIS3DH accel = Adafruit_LIS3DH();
 
 
+/**
+ * Arduino Setup
+ */
 void setup() {
     wdt_enable(9);
     //Serial.end();
@@ -134,6 +137,10 @@ void setLEDMode(String data, bool blinking_enabled) {
 }
 
 
+/**
+ * Handle the received serial command string, 
+ * and execute the correct code based on the command.
+ */
 void handle_received_command(String data) {
     // Set LED to Fixed Color
     if (data.charAt(9) == 'S') {
@@ -175,6 +182,12 @@ void handle_received_command(String data) {
     }
 }
 
+
+/**
+ * Update the state of the accelerometer.
+ * Read its value.
+ * Store the maximum seen value so far.
+ */
 void update_accelerometer() {
     if (acc_start == 1) {
         accel.read();
